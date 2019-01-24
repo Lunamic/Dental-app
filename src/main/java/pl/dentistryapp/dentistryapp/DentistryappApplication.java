@@ -17,6 +17,8 @@ public class DentistryappApplication {
     public static void main(String[] args) {
 
 
+        //test
+
         SpringApplication.run(DentistryappApplication.class, args);
 
 /*        Pracownik pracownik = new Pracownik();
