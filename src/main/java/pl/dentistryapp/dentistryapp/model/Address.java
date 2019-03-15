@@ -1,9 +1,13 @@
 package pl.dentistryapp.dentistryapp.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.List;
 
 //@Embeddable
 @Entity
+@Data
 public class Address {
 
     @Id
@@ -18,6 +22,22 @@ public class Address {
     private String street;
     @Column
     private int streetNumber;
+
+//    @OneToMany(mappedBy = "address", cascade = {CascadeType.MERGE})
+//    private List<Customer> customerList;
+
+/*    @ManyToOne(cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "owner_id")
+    private Customer customer;*/
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getLocality() {
         return locality;
@@ -51,22 +71,4 @@ public class Address {
         this.streetNumber = streetNumber;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", locality='" + locality + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", street='" + street + '\'' +
-                ", streetNumber=" + streetNumber +
-                '}';
-    }
 }

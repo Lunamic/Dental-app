@@ -8,9 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
 @Entity
 public class Customer {
 
@@ -43,10 +42,17 @@ public class Customer {
     @Lob
     private String description;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn()
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -104,11 +110,17 @@ public class Customer {
         this.description = description;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", phone=" + phone +
+                ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

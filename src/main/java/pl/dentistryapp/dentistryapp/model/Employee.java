@@ -42,7 +42,6 @@ public class Employee {
     private double salary;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn()
     private Address address;
 
     public Long getId() {
@@ -108,4 +107,6 @@ public class Employee {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+
 }

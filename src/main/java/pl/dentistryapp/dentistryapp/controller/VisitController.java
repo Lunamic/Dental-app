@@ -2,7 +2,10 @@ package pl.dentistryapp.dentistryapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.dentistryapp.dentistryapp.model.Customer;
+import pl.dentistryapp.dentistryapp.model.Employee;
 import pl.dentistryapp.dentistryapp.model.Visit;
+import pl.dentistryapp.dentistryapp.repository.CustomerRepository;
 import pl.dentistryapp.dentistryapp.repository.EmployeeRepository;
 import pl.dentistryapp.dentistryapp.repository.VisitRepository;
 
@@ -20,6 +23,12 @@ public class VisitController {
     @Autowired
     public VisitRepository visitRepository;
 
+    @Autowired
+    public CustomerRepository customerRepository;
+
+    @Autowired
+    public EmployeeRepository  employeeRepository;
+
     //pobieranie wizyt
     @GetMapping(value = "visits", produces = APPLICATION_JSON_VALUE)
     public @Valid Iterable<Visit> getVisit() {
@@ -33,10 +42,40 @@ public class VisitController {
         return visitRepository.findById(id);
     }
 
-    //dodawanie wizyty
+/*    //dodawanie wizyty
     @PostMapping(value = "visits", produces = APPLICATION_JSON_VALUE)
     public @Valid Visit addVisit(@Valid @RequestBody Visit visit) {
         System.out.println(visit.getData());
+        return visitRepository.save(visit);
+    }*/
+
+    //dodawanie wizyty
+    @PostMapping(value = "visits", produces = APPLICATION_JSON_VALUE)
+    public @Valid Visit addVisit(@Valid @RequestBody Visit visit) {
+//        System.out.println(visit.getData());
+//        visit.getCustomerList()
+        System.out.println(visit.getCustomerId());
+//        Optional<Customer> customerId = customerRepository.findById(visit.getCustomer().getId());
+//        System.out.println(customerId);
+//        visit.setCustomer(visit.getCustomer().);
+
+/*        Optional<Customer> customerRepositoryById = customerRepository.findById(visit.getCustomerId());
+
+        visit.getCustomer().setFirstName(customerRepositoryById.get().getFirstName());
+        visit.getCustomer().setLastName(customerRepositoryById.get().getLastName());
+        visit.getCustomer().setPesel(customerRepositoryById.get().getPesel());
+        visit.getCustomer().setPhone(customerRepositoryById.get().getPhone());
+        visit.getCustomer().setEmail(customerRepositoryById.get().getEmail());
+        visit.getCustomer().setDescription(customerRepositoryById.get().getDescription());
+        visit.getCustomer().setId(customerRepositoryById.get().getId());*/
+
+//        visit.getCustomer()
+        Optional<Customer> customerRepositoryById = customerRepository.findById(visit.getCustomerId());
+        Optional<Employee> employeeRepositoryById = employeeRepository.findById(visit.getEmployeeId());
+
+        System.out.println(visit);
+        System.out.println(customerRepositoryById);
+        System.out.println(employeeRepositoryById);
         return visitRepository.save(visit);
     }
 
